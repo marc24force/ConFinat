@@ -1,0 +1,23 @@
+# This is a comment line
+; This is also a comment
+; We can have values without section
+file = True # And comments can be on the same line
+
+[Section1] # This starts a section
+text = "All text should be in quotes" # A string within double quotes
+text2 = "We can escape with \\, \# not a comment \"In quotes\""
+# it doesn't support escaping the quotes (yet)
+number = 3.141592 ; We can also have a float number
+numbers = {3, 1, 4, 1, 6} # Or a vector 
+replica = (8, 0) # We can also have vector generated as this
+# This is the same as doing {0,0,0,0,0,0,0,0}
+combine = {4 3 2 1 (8, 0)} # and can be combined in a list
+# This is the same as doing {4,3,2,1,0,0,0,0,0,0,0,0}
+bool = True # We can have boolean values
+
+[Section2]
+text = "Multiline is not supported"
+number = 32
+numbers = {3 2 (6, 0)}
+bool = FALSE # It can be False, FALSE or false (same with true)
+
