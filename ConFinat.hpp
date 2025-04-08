@@ -42,7 +42,7 @@ namespace ConFinat {
 	using ConfData = std::vector<Section>;
 
 	// Open the file
-	std::ifstream open(const std::string& path) {
+	static std::ifstream open(const std::string& path) {
 		std::ifstream file(path);
 		if (!file.is_open()) {
 			throw std::runtime_error("Failed to open file: " + path);
@@ -51,7 +51,7 @@ namespace ConFinat {
 	}
 
 	// Returns if a character is considered a new token
-	bool isTokenDelimiter(char c) {
+	static bool isTokenDelimiter(char c) {
 		std::vector delimiters = {'[', ']', '{', '}', '(', ')', ',', '=', '"', ';', '#', ' ', '\\', '\0', '\n'};
 		for (char d : delimiters) 
 			if (c == d) return true;
@@ -61,7 +61,7 @@ namespace ConFinat {
 
 	// Get the next token from line starting at "next"
 	// Increases next to where the following token should start
-	Token getNextToken(std::string line, uint32_t& next) {
+	static Token getNextToken(std::string line, uint32_t& next) {
 		Token t;
 		t = "";
 		if (next >= line.size()) return t;
@@ -76,7 +76,7 @@ namespace ConFinat {
 	// Gets the next line from the input
 	// returs true if there is a line, false otherwise
 	// Ignores empty lines
-	bool getNextLine(Line& line, std::istream& text) {
+	static bool getNextLine(Line& line, std::istream& text) {
 		std::string str;
 		bool inQuotes = false;
 		bool escape = false;
@@ -111,7 +111,7 @@ namespace ConFinat {
 
 	// Processes the line and updates data
 	// Returns false if there is a syntax error
-	bool parseLine(Line& line, std::vector<Section>& data) {
+	static bool parseLine(Line& line, std::vector<Section>& data) {
 		// Check if line is a new Section:
 		if (line[0] == "[" && line[2] == "]") {
 			data.push_back({line[1], {}});
@@ -161,7 +161,7 @@ namespace ConFinat {
 	}
 
 	// Does the parsing of text with name and returns the ConfData
-	ConfData doParsing(std::istream& text, const std::string& name) {
+	static ConfData doParsing(std::istream& text, const std::string& name) {
 		Line line;
 		std::vector<Section> s;
 		s.push_back({"", {}});
@@ -177,13 +177,14 @@ namespace ConFinat {
 	}
 
 	// Parses input from file
-	ConfData parseFromFile(const std::string& file) {
+	static ConfData parseFromFile(const std::string& file) {
 		std::ifstream text = open(file);
 		return doParsing(text, file);
 	}
 
 	// Parses input from string
-	ConfData parseFromString(const std::string& input, const std::string& name) {
+	static ConfData parseFromString(const std::string& input, const std::string& name) {
+
 		std::istringstream text(input);
 		return doParsing(text, name);
 	}
