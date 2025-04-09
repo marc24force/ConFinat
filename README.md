@@ -12,7 +12,7 @@ Clone the repository or just download ConFinat.hpp and make sure it is in the in
 
 ## Usage
 
-Confinat is defined within it's own namespace. It can read from a string or a file and returns a ConfData type, 
+ConFinat is defined within it's own namespace. It can read from a string or a file and returns a ConfData type, 
 which is a std::vector of Section. Section is an struct with a name (std::string) and a pair key, value.
 
 Since ConFinat supports several types for the values those are defined as a struct containing the type of the data
@@ -27,7 +27,7 @@ Sections are defined within `[` `]` and should be just a single word.
 Empty lines and text after a `#` or `;` are ignored.
 
 Each of the entries can be one of this types:
-- String: Must be within double quotes `"`. It supports using `\\` to escape special characters.
+- String: Must be within double quotes `"`. It supports using `\` to escape special characters.
 - Number: A float number, it can be negative or decimal.
 - Vector: A vector of floats. Should start with `{`, elements can be separated by `,` or ` ` and the closing `}` is not required. 
     - It also supports replicating multiple values with `(N, a)` which would add N times a in the vector. This can be combined like `{300, (4, 100)}`
